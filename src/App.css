@@ -1,10 +1,11 @@
-.App {
-  text-align: center;
-}
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+body{
+  height: 95vh;
+  overflow-y:hidden !important;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -28,6 +29,145 @@
   color: #61dafb;
 }
 
+.main{
+  width: 100%;
+  display: flex;
+}
+.leftHamburgerMain{
+  width: 25%;
+}
+
+.leftHamburger{
+  background-color: #2374ee;
+  display: flex;
+  border-bottom:1px solid white;
+}
+
+.leftHamburgera{
+  color: white;
+  width: 100%;
+  margin: auto;
+  text-decoration: none;
+  text-align: center;
+  padding: 5px;
+}
+
+.contentHome{
+  width: 75%;
+}
+
+.itemlist{
+  width: 100%;
+  height: 92vh;
+  overflow-y:auto;
+}
+
+.item{
+  width: 98%;
+  border: 1px solid rgb(260, 180, 180);
+  margin: 5px auto;
+  border-radius: 5px;
+  display: block;
+  align-items: center;
+}
+
+.item>table{
+  width: inherit;
+}
+
+.itemName{
+  width: 20%;
+  text-align: center;
+}
+
+.itemTotalQTY{
+  width: 18%;
+  text-align: center;
+}
+.itemQTY{
+  width: 15%;
+  width: 15%;
+  text-align: center;
+}
+.itemQTY>div{
+  border: 1px solid gray;
+  border-radius: 5px;
+  align-self: center;
+  padding: 3px;
+}
+
+.itemButton{
+  margin: 2px 5px;
+  align-self: center;
+  align-content: center;
+  text-align: center;
+}
+
+.itemPrice{
+  width: 15%;
+  text-align: center;
+}
+
+.tilde{
+  width: fit-content;
+  margin: 10px;
+}
+.finished{
+  width: 8%;
+  text-align: center;
+  align-self: center;
+  color: rgb(200, 190, 180);
+}
+
+.totalPrice{
+  width: 9%;
+  text-align: center;
+}
+
+.itemPriceh{
+  border: 2px solid black;
+  text-align: center;
+}
+
+.leftHamburgera:active{
+  text-decoration: none;
+}
+
+.leftHamburgera:hover{
+  text-decoration: none;
+}
+
+.Purchase{
+  width: 20%;
+  text-align: center;
+}
+
+.totalPriceDiv{
+  width: 180px;
+  float: right;
+  margin: 5px 4%;
+}
+.totalPriceDiv>button{
+  float: right;
+}
+
+.totalPricec{
+  width: 100%;
+  display: flex;
+}
+
+.totalPricec>h6{
+  text-align: center;
+  align-items: center;
+  margin: auto;
+}
+
+
+.totalPricec>p{
+  text-align: center;
+  align-items: center;
+  margin: auto;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

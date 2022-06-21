@@ -1,23 +1,23 @@
-import logo from './logo.svg';
+import { Suspense } from 'react';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import './App.css';
+import Navbar from './components/Navbar';
+import Billing_main from './components/billing_main';
+import ItemState from './context/itemState';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ItemState>
+        <Router>
+          <Navbar />
+          <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+              <Route exact path="/" element={<Billing_main />} />
+            </Routes>
+          </Suspense>
+        </Router>
+      </ItemState>
     </div>
   );
 }
