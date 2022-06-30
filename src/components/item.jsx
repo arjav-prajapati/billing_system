@@ -1,7 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import ItemContext from '../context/itemContext';
 
 export default function Item(props) {
   const { item } = props;
+  const itemContext = useContext(ItemContext);
+  const { handleMinus, handlePlus } = itemContext;
+
   const [totalPricePerItem, setTotalPricePerItem] = useState({});
   const [itemToPurchasePerItem, setItemToPurchasePerItem] = useState({});
   const [itemQTY, setItemQTY] = useState({});
@@ -14,37 +18,25 @@ export default function Item(props) {
 
 
   const handleClickMinus = (e) => {
-    for (const key in itemToPurchasePerItem) {
-      if (Object.hasOwnProperty.call(itemToPurchasePerItem, key)) {
-        let element = itemToPurchasePerItem[key];
-        if (element === 0) {
-          alert('Sorry item cannot less than zero!!')
-        }
-        else {
-          setItemToPurchasePerItem({ ...itemToPurchasePerItem, [item._id]: --element });
-          const totalPrice = element * item.itemPrice;
-          setTotalPricePerItem({ ...totalPricePerItem, [item._id]: totalPrice });
-          setItemQTY({ ...itemQTY, [item._id]: ++itemQTY[item._id] });
-          props.totalPriceFunc(-item.itemPrice);
-        }
-      }
+    if (itemToPurchasePerItem[item._id] !== 0) {
+      setItemQTY({ ...itemQTY, [item._id]: ++itemQTY[item._id] });
+      setItemToPurchasePerItem({ ...itemToPurchasePerItem, [item._id]: --itemToPurchasePerItem[item._id] });
+      setTotalPricePerItem({...totalPricePerItem,[item._id]:totalPricePerItem[item._id]-item.itemPrice});
+      // setItemQTY({...itemQTY,[item._id]:--itemQTY[item._id]});
+      handleMinus(item._id, itemToPurchasePerItem[item._id], itemQTY[item._id],item.itemPrice);
+    }else{
+      alert("Item cannot be less than zero!!");
     }
   }
 
   const handleClickPlus = (e) => {
-    for (const key in itemToPurchasePerItem) {
-      if (Object.hasOwnProperty.call(itemToPurchasePerItem, key)) {
-        let element = itemToPurchasePerItem[key];
-        if (itemQTY[item._id] === 0) {
-          alert('Sorry product is out of Stock!!');
-        } else {
-          setItemToPurchasePerItem({ ...itemToPurchasePerItem, [item._id]: ++element });
-          const totalPrice = element * item.itemPrice;
-          setTotalPricePerItem({ ...totalPricePerItem, [item._id]: totalPrice });
-          setItemQTY({ ...itemQTY, [item._id]: --itemQTY[item._id] });
-          props.totalPriceFunc(item.itemPrice);
-        }
-      }
+    if (itemQTY[item._id] !== 0) {
+      setItemToPurchasePerItem({ ...itemToPurchasePerItem, [item._id]: ++itemToPurchasePerItem[item._id] });
+      setTotalPricePerItem({...totalPricePerItem,[item._id]:totalPricePerItem[item._id]+item.itemPrice});
+      setItemQTY({...itemQTY,[item._id]:--itemQTY[item._id]});
+      handlePlus(item._id, itemToPurchasePerItem[item._id], itemQTY[item._id],item.itemPrice);
+    }else{
+      alert("Item out of Stock!!");
     }
   }
 

@@ -162,12 +162,163 @@ body{
   margin: auto;
 }
 
-
 .totalPricec>p{
   text-align: center;
   align-items: center;
   margin: auto;
 }
+
+
+/* bill total */
+.totalPriceDivBill{
+  width: 180px;
+  float: right;
+  margin: 5px;
+  border-top: 1px dashed black;
+}
+.totalPriceDivBill>button{
+  float: right;
+}
+
+.totalPricecBill{
+  width: 100%;
+  display: flex;
+}
+
+.totalPricecBill>h6{
+  text-align: center;
+  align-items: center;
+  margin: auto;
+}
+
+.totalPricecBill>p{
+  text-align: left;
+  align-items: center;
+  margin: auto;
+}
+
+
+
+.itemNameBill{
+  width: 20%;
+}
+
+.itemTotalQTYBill{
+  width:20%;
+}
+
+.itemPriceBill{
+  width: 20%;
+}
+
+.totalPriceBill{
+  width: 20%;
+}
+
+table>tr>td,th{
+  text-align: center;
+}
+
+.Bill{
+  display: none;
+}
+
+
+/* invoice css */
+
+.contentAllInvoice{
+  width: 75%;
+}
+
+.invoiceList{
+  border: 1px solid rgb(260, 180, 180);
+  border-radius: 5px;
+  height: 92vh;
+  overflow-y:auto;
+  margin: 2px;
+}
+
+
+.invoice{
+  border: 1px solid black;
+  margin: 5px 5px;
+  border-radius: 5px;
+  padding:10px;
+  background-color: rgba(4, 8, 243, 0.089);
+  display: block;
+  justify-content: space-between;
+  font-size: small;
+}
+
+.invoiceDisplay{
+  display: flex;
+}
+
+.seeMore{
+  align-items: center;
+  border: none;
+  width: 30px;
+  background-color: rgba(4, 8, 243, 0);
+  margin: 0 8px;
+  cursor: pointer;
+}
+
+.seeMore>img{
+  width: 20px;
+}
+
+.invoiceNo{
+  align-items: center;
+  padding: 2px 0 0 0;
+  width: 25%;
+}
+
+.moreDetails{
+  display: none;
+}
+
+.moreDetails>table{
+  width: 100%;
+}
+
+.btnControl{
+  display: none;
+  cursor: pointer;
+}
+
+.rotate-img-90{
+  animation-name: rotat; 
+  animation-duration: 1s;
+  transition-timing-function: linear;
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration: 1s; 
+  -webkit-transition-timing-function: linear;
+}
+
+@keyframes rotat {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(90deg); }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(90deg); }
+}
+
+.rotate-img-0{
+  animation-name: rotate; 
+  animation-duration: 1s;
+  transition-timing-function: linear;
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration: 1s; 
+  -webkit-transition-timing-function: linear;
+}
+
+@keyframes rotate {
+  0% { -webkit-transform: rotate(90deg); }
+  100% { -webkit-transform: rotate(0deg); }
+  0% { transform: rotate(90deg); }
+  100% { transform: rotate(0deg); }
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

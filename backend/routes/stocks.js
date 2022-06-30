@@ -62,19 +62,19 @@ router.get('/fetchItems', async(req,res) =>{
 
 //add stock
 router.put('/addStock/:id', async (req, res) => {
-
     const schema = Joi.object({
-        itemName: Joi.string().required(),
         itemStock: Joi.number().required()
     });
 
-    const result = schema.validate({ itemName: req.body.itemName, itemStock: req.body.itemStock });
+    const result = schema.validate({ itemStock: req.body.itemStock });
     if (result.error) {
         res.status(400).json({ success: false, msg: result.error.details[0].message });
         return;
     } else {
         try {
-            const update = await Stocks.findByIdAndUpdate(req.params.id, { $set: { itemName: req.body.itemName, itemStock: req.body.itemStock ,lastStockAdded:Date.now()} }, { new: true });
+            const item = await Stocks.findById(req.params.id);
+            const itemstock  = item.itemStock+req.body.itemStock;
+            const update = await Stocks.findByIdAndUpdate(req.params.id, { $set: { itemStock: itemstock,lastStockAdded:Date.now()} }, { new: true });
             res.status(200).json({ success: true, obj: update });
         } catch (error) {
             res.status(500).json({ success: false, msg: "Internal server error!" });
