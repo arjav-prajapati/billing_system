@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef} from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import ItemContext from '../context/itemContext';
 import Item from './item';
 import ReactToPrint from 'react-to-print';
@@ -8,9 +8,9 @@ import InvoiceComponent from './invoiceComponent';
 
 export default function BillingMain() {
   const itemContext = useContext(ItemContext);
-  const { getItems, items, backendFunc, totalPrice, itemToPurchasePerItem, totalPricePerItem, saveInvoiceBackend} = itemContext;
+  const { getItems, items, backendFunc, totalPrice, itemToPurchasePerItem, totalPricePerItem } = itemContext;
   const invoiceContext = useContext(InvoiceContext);
-  const {getInvoices,invoices} = invoiceContext;
+  const { getInvoices, invoices, saveInvoiceBackend} = invoiceContext;
   const componentPrint = useRef('');
 
   useEffect(() => {
@@ -27,13 +27,15 @@ export default function BillingMain() {
   //   totalBuyingItems(...totalBuyingItems,{[totalBuyingItems]:{_id:id,itemName:items[id].itemName,itemPrice,itemToPurchase}})
   // }
 
-  const getTotalItems = (e) => {
-    backendFunc();
+  const getTotalItems = async (e) => {
+    const totalItemsToBuy = await backendFunc();
+    if (totalItemsToBuy !== null && totalItemsToBuy.length !== 0) {
+      saveInvoiceBackend(totalItemsToBuy,totalPrice);
+    }else{
+      alert("No items Selected!!");
+    }
   }
 
-  const saveInvoice = () =>{
-    saveInvoiceBackend();
-  }
 
   function changeTabs(e) {
     const target = e.target;
@@ -77,6 +79,9 @@ export default function BillingMain() {
         <div className="leftHamburger" role="tablist" aria-label="Sample Tabs" onClick={changeTabs}>
           <button role="tab" className="leftHamburgera btn btn-primary" aria-selected="true" aria-controls="panel-2" id="tab-2" tabIndex="0">Show all Invoice</button>
         </div>
+        <div className="leftHamburger" role="tablist" aria-label="Sample Tabs" onClick={changeTabs}>
+          <button role="tab" className="leftHamburgera btn btn-primary" aria-selected="true" aria-controls="panel-3" id="tab-3" tabIndex="0">Add a Item</button>
+        </div>
       </div>
 
       <div className="contentHome" id="panel-1" role="tabpanel" tabIndex="0" aria-labelledby="tab-1">
@@ -102,7 +107,6 @@ export default function BillingMain() {
           </div>
           <div className="totalPriceDiv">
             <div className="totalPricec"><h6>Total Price : </h6><p>{totalPrice}</p></div>
-            <button onClick={saveInvoiceBackend}>This</button>
             {/* This is for printing bill */}
             <ReactToPrint
               trigger={() => {
@@ -111,8 +115,7 @@ export default function BillingMain() {
               content={() => componentPrint.current}
               documentTitle='Bill'
               pageStyle="print"
-              onBeforePrint={getTotalItems}
-              onAfterPrint={saveInvoice}
+              onAfterPrint={getTotalItems}
             />
 
           </div>
@@ -128,7 +131,7 @@ export default function BillingMain() {
                 {items !== '' && items !== null && items.length !== 0 ? items.map((item) => {
                   if (itemToPurchasePerItem[item._id]) {
                     return <BillingItems key={item._id} item={item} itemToPurchase={itemToPurchasePerItem[item._id]} totalPricePerItem={totalPricePerItem[item._id]} />
-                  }else{
+                  } else {
                     return '';
                   }
                 }) : 'No items Found!!'}
@@ -139,16 +142,19 @@ export default function BillingMain() {
             </div>
           </div>
         </div>
-                
+
       </div >
       <div className="contentAllInvoice" id="panel-2" role="tabpanel" tabIndex="0" aria-labelledby="tab-2" hidden>
-          <div className="invoiceList">
-          {invoices.length !== 0 && invoices!==undefined?invoices.map((invoice)=>{
-            return <InvoiceComponent key={invoice._id} invoice={invoice}/>
-          }):"No Invoices Found!!"}
-          </div>
+        <div className="invoiceList">
+          {invoices.length !== 0 && invoices !== undefined ? invoices.map((invoice) => {
+            return <InvoiceComponent key={invoice._id} invoice={invoice} />
+          }) : "No Invoices Found!!"}
+        </div>
       </div>
 
+      <div className="contentAllInvoice" id="panel-3" role="tabpanel" tabIndex="0" aria-labelledby="tab-3" hidden>
+        
+      </div>
     </div >
   )
 }

@@ -4,7 +4,7 @@
 }
 
 body{
-  height: 95vh;
+  height: 100vh;
   overflow-y:hidden !important;
 }
 
@@ -233,7 +233,7 @@ table>tr>td,th{
 .invoiceList{
   border: 1px solid rgb(260, 180, 180);
   border-radius: 5px;
-  height: 92vh;
+  height: 88vh;
   overflow-y:auto;
   margin: 2px;
 }
@@ -265,6 +265,7 @@ table>tr>td,th{
 
 .seeMore>img{
   width: 20px;
+  transition: transform 0.5s;
 }
 
 .invoiceNo{
@@ -275,6 +276,7 @@ table>tr>td,th{
 
 .moreDetails{
   display: none;
+  transition: transform 0.5s;
 }
 
 .moreDetails>table{
@@ -286,37 +288,39 @@ table>tr>td,th{
   cursor: pointer;
 }
 
-.rotate-img-90{
-  animation-name: rotat; 
-  animation-duration: 1s;
+
+.btnControl:checked~label>img{
+  animation-name: rotate; 
+  animation-duration: 0.5s;
   transition-timing-function: linear;
-  -webkit-animation-name: rotate;
-  -webkit-animation-duration: 1s; 
-  -webkit-transition-timing-function: linear;
+  transform: rotate(90deg);
 }
 
-@keyframes rotat {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(90deg); }
+@keyframes rotate {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(90deg); }
 }
 
-.rotate-img-0{
-  animation-name: rotate; 
-  animation-duration: 1s;
-  transition-timing-function: linear;
-  -webkit-animation-name: rotate;
-  -webkit-animation-duration: 1s; 
-  -webkit-transition-timing-function: linear;
+@keyframes zoom-out {
+  0% {
+  transform: scale(0, 0);
+  }
+  100% {
+  transform: scale(1, 1);
+  }
+  }
+
+/* .totalPriceInvoice{
+  border: 1px solid black;
+  width: fit-content;
+  display: flex;
 }
 
-@keyframes rotate {
-  0% { -webkit-transform: rotate(90deg); }
-  100% { -webkit-transform: rotate(0deg); }
-  0% { transform: rotate(90deg); }
-  100% { transform: rotate(0deg); }
-}
+.totalPriceInvoiceTotal{
+  display: flex;
+  text-align: center;
+  align-items: center;
+} */
 
 
 @keyframes App-logo-spin {
